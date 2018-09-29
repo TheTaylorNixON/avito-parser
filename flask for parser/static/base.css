@@ -1,0 +1,103 @@
+body {
+    background: url(./img/background.png);
+    margin: 0;
+}
+
+table {
+    caption-side:     bottom;
+    border-collapse:  collapse;
+}
+
+td, th {
+    padding:          5px;
+    /* text-align:       center; */
+}
+
+table {
+    margin: 0;
+    background-color:   #fafcff;
+    color:              #2a2a2a;
+}
+    
+td, th {
+    border: thin dotted gray;
+}
+
+a {
+    display: block;
+    margin: 35px;
+    text-decoration: none;
+}
+
+p {
+    text-align: center;
+    font-size: 20px;
+    color: white;
+}
+
+.welcome {
+    color: #fff;
+    font-size: 35px;
+}
+
+.main {
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.input-form {
+    background-color: #F1F3F4;
+    padding: 10px;
+    font-size: 22px;
+    border-radius: 22px;
+    border: none;
+    width: 560px;
+    display: block;
+    margin: 20px;
+    outline: none;
+}
+
+.search {
+    cursor: pointer;
+    background-color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 8px 35px;
+    font-size: 18px;
+    text-decoration: none;
+    color: rgba(33, 32, 36, 0.86);
+}
+
+.avito-favicon {
+    display: flex;
+    align-items: center;
+    flex-flow: column nowrap;
+}
+
+.avito-favicon img {
+    margin: 15px;
+}
+
+/*------------------------------ results ----------------------------------*/
+
+.results {
+    display: flex;
+}
+
+.results-link {
+    background-color: white;
+    border-radius: 12px;
+    padding: 8px 35px;
+    font-size: 16px;
+    text-decoration: none;
+    margin: 10px;
+}
+
+.avito-favicon p {
+    width: 150px;
+    color: black;
+}
+

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block body %}
+
+<form action="/results" method="POST">
+    <div class="main">
+        <h2 class="welcome">Welcome to Avito Parser!</h2>
+        <input type="TEXT" name="city" value="" placeholder="Город" class="input-form">
+        <input type="TEXT" name="phrase" placeholder="Поисковый запрос" class="input-form">
+        <div class="avito-favicon">
+            <img src="../static/img/avito-icon.png" alt="avito-favicon">
+            <input type="SUBMIT" value="SEARCH" class="search">
+        </div>
+    </div>
+</form>
+
+{% endblock %}
