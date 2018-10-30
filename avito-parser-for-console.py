@@ -15,7 +15,10 @@ def get_html(url: str):         # возвращает html код с запра
 
 
 def get_total_pages(html):      # возвращает номер последней страницы  -> int
+    with open('test.txt', 'w') as qwe:
+        print(html, file=qwe)
     soup = BeautifulSoup(html, "lxml")
+    print(soup.find('div', class_='pagination-pages fDrSyailDdFM'))
     pages = soup.find('div', class_='pagination-pages').find_all('a', class_='pagination-page')[-1].get('href')
     total_pages = pages.split('=')[1].split('&')[0]
     return int(total_pages)

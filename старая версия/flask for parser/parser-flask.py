@@ -55,6 +55,12 @@ app.secret_key = '#$Aqk^&45$$2oPfgHnmKloU5i99fG%$#'
 
 def ask_DB(*args):
     try:
+        if args[-1] == False:        
+            cursor = parser_db.create_connection()    
+            parser_db.query_insert(*args)
+            parser_db.close()
+            return True
+
         cursor = parser_db.create_connection()    
         parser_db.query_insert(*args)
         contents = cursor.fetchall()
@@ -122,24 +128,21 @@ def check_signin():
         username = request.form['login']
         password = request.form['password']
 
+        _SQL = 'SELECT username FROM Users WHERE username=%s'
+        dbuser = ask_DB(_SQL, (username,))
+
         if len(password) < 4 or len(username) < 4:
             text = 'Логин и пароль должны содержать не менее 4х символов'
             return render_template('signin.html',the_text=text)
-
-        cursor = parser_db.create_connection()
-        _SQL = 'SELECT username FROM Users WHERE username=%s'
-        parser_db.query_insert(_SQL, (username,))
-        dbuser = cursor.fetchall()
-
-        if dbuser:
+        elif dbuser:
             text = 'Имя "%s" занято' %username
-            cursor.close()
             return render_template('signin.html',the_text=text)
             
-        _SQL = 'INSERT INTO Users (username, password) VALUES (%s, %s)'
-        parser_db.query_insert(_SQL, (username, password))
-        parser_db.close()
-
+        _SQL = ''' INSERT INTO Users
+                (username, password) 
+                VALUES
+                (%s, %s) '''
+        ask_DB(_SQL, (username, password), False)
         session['logged_in'] = True 
         session['name'] = username
 
@@ -182,23 +185,14 @@ def do_search():
 @check_status
 def view_the_parse():
     titles = ('ID', 'Заголовок', 'Цена', 'Время', 'Место', 'Телефон', 'URL')
+    _SQL = 'UPDATE parse SET time="Время размещения неизвестно" WHERE LENGTH(time) > 60'
+    ask_DB(_SQL, False)
 
-    cursor = parser_db.create_connection()
-    _SQL_time = 'UPDATE parse SET time="Время размещения неизвестно" WHERE LENGTH(time) > 60'
-    _SQL_phone = 'UPDATE parse SET phone="Неизвестно" WHERE LENGTH(phone) > 60'
     _SQL = 'SELECT * FROM parse WHERE id <= %s' %(page.default_step)
-
-    parser_db.query_insert(_SQL_time)
-    parser_db.query_insert(_SQL_phone)
-    parser_db.query_insert(_SQL)
-
-    data = cursor.fetchall()
-    parser_db.close()
-
     page.do_reload()
     try:
         return render_template('viewresults.html', the_row_titles = titles,
-                                                   the_data = data)
+                                                   the_data = ask_DB(_SQL), )
     except Exception as e:
         exception_handler(e)
         return 'Error'

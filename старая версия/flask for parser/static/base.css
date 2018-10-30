@@ -202,7 +202,6 @@ label img {
 .avito-favicon.space-around {
     flex-flow: row;
     justify-content: space-around;
-    align-items: start;
 }
 
 .avito-login {
@@ -317,7 +316,6 @@ label img {
     cursor: pointer;
     width: 120px;
     height: 40px;
-    margin-top: 30px;
     appearance: none;
     -webkit-appearance: none;
     background: linear-gradient(0deg, #fff, grey);

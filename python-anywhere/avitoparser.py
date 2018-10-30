@@ -32,7 +32,7 @@ def get_total_pages(html): # возвращает номер последней 
     return int(total_pages)
 
 
-def get_all_pages_urls(city, search, total_pages):  # добавляет url всех страниц в список, сработает если нужно парсить номера телефонов (мультипроцессингом)
+def get_all_pages_urls(city, search, total_pages):
     all_pages_urls = []
     for i in range(1, total_pages+1):
         url = base_url + city + page + str(i) + query + search
@@ -40,8 +40,8 @@ def get_all_pages_urls(city, search, total_pages):  # добавляет url в�
     return all_pages_urls
 
 
-def chunks(n, page_list):       # делит содержимое списка с url всех страницы на несколько списков
-    return np.array_split(page_list,n)      # вернет массив внутри которого еще несколько массивовб равные количеству ядер
+def chunks(n, page_list):
+    return np.array_split(page_list,n)
 
 
 def parsing(links):
@@ -51,17 +51,10 @@ def parsing(links):
         for link in links:
             html = get_html(link)
             get_page_data(html, cursor)
+
     except:
-        # тут костыль
-        print("Error while connecting to MySQL using Connection pool")
-        try:
-            cursor = pool_db.create_cursor()
-            print('Connection opened')
-            for link in links:
-                html = get_html(link)
-                get_page_data(html, cursor)
-        except:
-            print("Error #2")
+        print ("Error while connecting to MySQL using Connection pool")
+
     finally:
         pool_db.close()
         print("MySQL connection is closed")
@@ -143,11 +136,13 @@ def get_page_data(html, cursor, phone=True): # парсит страницу и 
                 time = 'Время размещения неизвестно'      
 
             try:
-                data = ad.find('div', class_ = 'description').find('div', class_='data').find_all('p')
-                if len(data) <= 1:
-                    place = 'Район не указан'
+                fp = ad.find('div', class_ = 'description').find('div', class_='data').find_all('p')[0].text.strip()
+                sp = ad.find('div', class_ = 'description').find('div', class_='data').find_all('p')[-1].text.strip()
+
+                if fp != sp:
+                    place = sp
                 else:
-                    place = data[-1].text.strip()
+                    place = 'Район не указан'
             except:
                 place = 'Район не указан'
 
@@ -160,6 +155,7 @@ def get_page_data(html, cursor, phone=True): # парсит страницу и 
                 tel = get_tel(url)
             except:
                 tel = 'Не удалось распознать номер телефона'
+            print(tel)
             # импорт в БД
             cursor.execute(_SQL, (title, price, time, place, tel, url))
 
@@ -181,11 +177,13 @@ def get_page_data(html, cursor, phone=True): # парсит страницу и 
                 time = 'Время размещения неизвестно'      
 
             try:
-                data = ad.find('div', class_ = 'description').find('div', class_='data').find_all('p')
-                if len(data) <= 1:
-                    place = 'Район не указан'
+                fp = ad.find('div', class_ = 'description').find('div', class_='data').find_all('p')[0].text.strip()
+                sp = ad.find('div', class_ = 'description').find('div', class_='data').find_all('p')[-1].text.strip()
+
+                if fp != sp:
+                    place = sp
                 else:
-                    place = data[-1].text.strip()
+                    place = 'Район не указан'
             except:
                 place = 'Район не указан'
 
