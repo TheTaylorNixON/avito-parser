@@ -14,7 +14,7 @@ pip install virtualenv (Если не получилось: sudo pip install vir
 virtualenv venv
 source venv/bin/activate
 pip install -r requirements.txt
-python database_creater.py
+python database_creator.py
 ```
 #### Для запуска веб приложения:
 ```
