@@ -222,7 +222,14 @@ def get_ajax_request():
 @app.route('/downloads/<path:filename>')
 @check_status
 def download_results(filename):
-    titles = ('ID', 'Заголовок', 'Цена', 'Время', 'Место', 'Номер телефона', 'URL')
+    _SQL = 'SELECT phone FROM parse WHERE id=1'
+    answer = ask_DB(_SQL)[0][0]
+
+    if answer:
+        titles = ('ID', 'Заголовок', 'Цена', 'Время', 'Место', 'Номер телефона', 'URL')
+    else:
+        titles = ('ID', 'Заголовок', 'Цена', 'Время', 'Место', 'URL')
+        
     _SQL = 'SELECT * FROM parse'
 
     with open('results.csv', 'w') as results:

@@ -10,7 +10,7 @@ CREATE TABLE parse (
 
 CREATE TABLE `users` (
     `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
-    `user` longtext NOT NULL,
+    `username` longtext NOT NULL,
     `password` longtext NOT NULL
 );
 -- drop from parse
