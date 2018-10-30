@@ -95,10 +95,10 @@ def check_registration():
         username = request.form['login']
         password = request.form['password']
 
-        _SQL = 'SELECT username FROM Users WHERE username=%s'
+        _SQL = 'SELECT username FROM users WHERE username=%s'
         dbuser = ask_DB(_SQL, (username,))
 
-        _SQL = 'SELECT password FROM Users WHERE username=%s'
+        _SQL = 'SELECT password FROM users WHERE username=%s'
         dbpassword = ask_DB(_SQL, (username,))
 
         if dbuser:
@@ -127,7 +127,7 @@ def check_signin():
             return render_template('signin.html',the_text=text)
 
         cursor = parser_db.create_connection()
-        _SQL = 'SELECT username FROM Users WHERE username=%s'
+        _SQL = 'SELECT username FROM users WHERE username=%s'
         parser_db.query_insert(_SQL, (username,))
         dbuser = cursor.fetchall()
 
@@ -136,7 +136,7 @@ def check_signin():
             cursor.close()
             return render_template('signin.html',the_text=text)
             
-        _SQL = 'INSERT INTO Users (username, password) VALUES (%s, %s)'
+        _SQL = 'INSERT INTO users (username, password) VALUES (%s, %s)'
         parser_db.query_insert(_SQL, (username, password))
         parser_db.close()
 

@@ -53,7 +53,11 @@ def create_database(cursor):
                 print(err.msg)
         else:
             print("OK")
-
+    try:
+        cursor.execute("INSERT INTO users(username, password) VALUES ('admin', 'root')")
+    except:
+        pass
+        
     cnx.commit()
     cursor.close()
     cnx.close()
