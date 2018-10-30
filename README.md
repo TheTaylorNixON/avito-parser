@@ -1,12 +1,14 @@
 # Web parser для Avito
 
 ## Установка:
-
-### Если на локальной машине установлен mysql:
-#### В консоли:
+- Скачать ZIP проекта
+- Распаковать
 ```
 cd /путь/avito-parser-master
 ```
+
+### Если на локальной машине установлен mysql:
+#### В консоли:
 ```
 pip install virtualenv (Если не получилось: sudo pip install virtualenv)
 virtualenv venv
@@ -18,7 +20,6 @@ python database_creater.py
 ```
 python parser-flask.py
 ```
-
 ##### Готово, переходим по ссылке http://127.0.0.1:5000/
 
 
@@ -41,5 +42,4 @@ pip install -r requirements.txt
 ```
 python parser-flask.py
 ```
-
 ##### Готово, переходим по ссылке http://127.0.0.1:5000/
