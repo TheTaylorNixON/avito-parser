@@ -4,10 +4,10 @@ from mysql.connector.pooling import MySQLConnectionPool
 
 class UseDataBase():
 
-    configuration = {'host': 'mysql.9883814296.myjino.ru',
-                     'user': '9883814296',
+    configuration = {'host': 'mysql.92oopss.myjino.ru',
+                     'user': '92oopss',
                      'password': '9python9',
-                     'database': '9883814296',}
+                     'database': '92oopss',}
 
     def create_connection(self):
         self.conn = mysql.connector.connect(**self.configuration)
@@ -25,10 +25,10 @@ class UseDataBase():
 
 class UsePoolConnectionToDB():
 
-    configuration = {'host': 'mysql.9883814296.myjino.ru',
-                     'user': '9883814296',
+    configuration = {'host': 'mysql.92oopss.myjino.ru',
+                     'user': '92oopss',
                      'password': '9python9',
-                     'database': '9883814296',}
+                     'database': '92oopss',}
 
     def __init__(self, name, size):
         self.cnxpool = mysql.connector.pooling.MySQLConnectionPool(pool_name = name,
